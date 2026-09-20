@@ -1,0 +1,39 @@
+const VIP_DISCOUNT = 0.1;
+
+/**
+ * Calculate an order total for a customer.
+ *
+ * @param {number} price - Price of one item.
+ * @param {number} quantity - Number of items.
+ * @param {string} customerType - Customer category, for example "vip".
+ * @returns {number} The calculated total.
+ */
+function calculateTotal(price, quantity, customerType) {
+  if (!Number.isFinite(price) || !Number.isFinite(quantity)) {
+    throw new TypeError("price and quantity must be finite numbers");
+  }
+
+  if (price < 0 || quantity < 0) {
+    throw new RangeError("price and quantity must be >= 0");
+  }
+
+  const subtotal = price * quantity;
+
+  return customerType === "vip"
+    ? subtotal * (1 - VIP_DISCOUNT)
+    : subtotal;
+}
+
+if (require.main === module) {
+  const tasks = [
+    "Design the menu screen",
+    "Build the orders API",
+    "Add user login",
+  ];
+
+  console.log(`CampusEats has ${tasks.length} open tasks`);
+}
+
+console.log("CampusEats task list loaded successfully");
+
+module.exports = { calculateTotal, VIP_DISCOUNT };
